@@ -11,7 +11,7 @@
 #define PORT 3003
 #define BUFSIZE 256
 
-// gcc -std=c99 -Wall -Wextra -pedantic -o server server.c
+// gcc -Ofast -std=c99 -Wall -Wextra -pedantic -o server server.c
 
 int main(void)
 {
@@ -74,6 +74,20 @@ int main(void)
         }
 
         printf("msg from client: %s\n", (const char*)buf);
+
+        // server kill switch
+        if (strncmp((const char*)buf, "##", 2) == 0) {
+            printf("+ hit server kill switch\n");
+
+            msg = "bye bye now";
+            size = strlen(msg);
+            if (write(client_sock, msg, size + 1) == -1) {
+                perror("write error:");
+                goto serv_client_cleanup;
+            }
+
+            break;
+        }
 
         // send back to client
         msg = "kili kitya eeyo!";

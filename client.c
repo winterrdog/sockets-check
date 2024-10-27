@@ -11,7 +11,7 @@
 #define PORT 3003
 #define BUFSIZE 256
 
-// gcc -std=c99 -Wall -Wextra -pedantic -o client client.c
+// gcc -Ofast -std=c99 -Wall -Wextra -pedantic -o client client.c
 
 int main(void)
 {
@@ -41,7 +41,8 @@ int main(void)
     }
 
     // write
-    const char* msg = "mwana kitokota!!";
+    // const char* msg = "##"; // activate kill-switch
+    const char* msg = "it's mob hot here!!";
     int size = strlen(msg);
     if (write(sock, (const void*)msg, size + 1) == -1) {
         perror("writing error");
