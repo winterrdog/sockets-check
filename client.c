@@ -11,6 +11,8 @@
 #define PORT 3003
 #define BUFSIZE 256
 
+// gcc -std=c99 -Wall -Wextra -pedantic -o client client.c
+
 int main(void)
 {
     // make a socket
